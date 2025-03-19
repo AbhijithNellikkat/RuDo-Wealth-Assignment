@@ -1,10 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rudo_wealth_test/application/presentation/routes/route_generator.dart';
 import 'package:rudo_wealth_test/application/presentation/routes/routes.dart';
 import 'package:rudo_wealth_test/application/presentation/theme/app_theme.dart';
-import 'package:rudo_wealth_test/application/presentation/utils/constants/colors.dart';
 import 'package:rudo_wealth_test/firebase_options.dart';
+
+import 'application/bussiness_logic/bloc/auth_bloc.dart';
+import 'data/services/auth/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,12 +22,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RuDo Wealth Test',
-      debugShowCheckedModeBanner: false,
-      theme: AppThemes.darkTheme(),
-      initialRoute: Routes.initial,
-      onGenerateRoute: RouteGenerator().onGenerateRoute,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (ctx) => AuthBloc(AuthService())),
+      ],
+      child: MaterialApp(
+        title: 'RuDo Wealth Test',
+        debugShowCheckedModeBanner: false,
+        theme: AppThemes.darkTheme(),
+        initialRoute: Routes.initial,
+        onGenerateRoute: RouteGenerator().onGenerateRoute,
+      ),
     );
   }
 }

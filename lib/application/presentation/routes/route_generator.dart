@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rudo_wealth_test/application/presentation/routes/routes.dart';
 import 'package:rudo_wealth_test/application/presentation/screens/authentication/sign_in.dart';
 import 'package:rudo_wealth_test/application/presentation/screens/authentication/sign_up.dart';
+import 'package:rudo_wealth_test/application/presentation/screens/dashboard/dashboard_screen.dart';
 import 'package:rudo_wealth_test/application/presentation/screens/splash/splash_screen.dart';
 
 class RouteGenerator {
@@ -20,6 +21,12 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => const ScreenSignIn(),
         );
+
+      case Routes.dashboardPage:
+        return MaterialPageRoute(
+          builder: (context) => const ScreenDashboard(),
+        );
+
       default:
         return _errorScreen();
     }
