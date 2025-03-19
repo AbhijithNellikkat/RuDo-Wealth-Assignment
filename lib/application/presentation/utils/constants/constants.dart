@@ -24,6 +24,8 @@ const kRadius50 = Radius.circular(50);
 double sHeight = 850;
 double sWidth = 350;
 
+const String errorMessage = 'Oops! Something went wrong. Please try again.';
+
 BoxShadow boxShadow = BoxShadow(
   color: Colors.grey.withOpacity(0.5),
   blurRadius: 5.0,

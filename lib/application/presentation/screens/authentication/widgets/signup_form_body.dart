@@ -27,7 +27,7 @@ class SignUpFormBody extends StatelessWidget {
             (state.signInSuccess != null && state.signInSuccess!)) {
           showSnack(
               context: context,
-              message: state.message!,
+              message: state.message ?? errorMessage,
               color: state.hasError ? kred : kprimary);
         }
         if (state.signInSuccess != null && state.signInSuccess!) {
@@ -165,6 +165,7 @@ class SignUpFormBody extends StatelessWidget {
               },
               text: 'Sign up with Google',
               style: AuthButtonStyle(
+                  iconSize: 25,
                   iconType: AuthIconType.secondary,
                   buttonColor: kblack,
                   textStyle: Theme.of(context)

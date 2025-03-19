@@ -13,8 +13,12 @@ class AuthService implements AuthRepo {
   Future<Either<Failure, UserCredential>> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        return Left(
+            Failure(message: "Google Sign-In was canceled. Please try again."));
+      }
       final GoogleSignInAuthentication googleAuth =
-          await googleUser!.authentication;
+          await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,

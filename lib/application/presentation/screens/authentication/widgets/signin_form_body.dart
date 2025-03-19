@@ -28,7 +28,7 @@ class SignInFormBody extends StatelessWidget {
             (state.signInSuccess != null && state.signInSuccess!)) {
           showSnack(
               context: context,
-              message: state.message!,
+              message: state.message ?? errorMessage,
               color: state.hasError ? kred : kprimary);
         }
         if (state.signInSuccess != null && state.signInSuccess!) {
@@ -169,6 +169,7 @@ class SignInFormBody extends StatelessWidget {
                     .textTheme
                     .displaySmall
                     ?.copyWith(fontSize: 15),
+                iconSize: 25,
                 iconType: AuthIconType.secondary,
                 buttonColor: kblack,
               ),

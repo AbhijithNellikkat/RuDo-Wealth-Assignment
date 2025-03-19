@@ -25,6 +25,7 @@ void showCustomToast({
 void showSnack(
     {required BuildContext context,
     required String message,
+    Color textColor = kblack,
     Color? color,
     int time = 1600}) {
   ScaffoldMessenger.of(context).showSnackBar(
@@ -32,7 +33,9 @@ void showSnack(
       dismissDirection: DismissDirection.horizontal,
       content: Text(
         message,
-        style: Theme.of(context).textTheme.displaySmall,
+        style: Theme.of(context).textTheme.displaySmall?.copyWith(
+              color: textColor,
+            ),
       ),
       duration: Duration(milliseconds: time),
       backgroundColor: color,

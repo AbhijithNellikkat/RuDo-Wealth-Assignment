@@ -12,7 +12,9 @@ class CustomEventButton extends StatelessWidget {
     this.textStyle,
     this.color,
     this.borderRadius,
+    this.outlineBorderClr,
     this.showGradiant = true,
+    this.outlineBorder = false,
     this.padding,
     this.margin,
   });
@@ -26,6 +28,8 @@ class CustomEventButton extends StatelessWidget {
   final double? borderRadius;
   final TextStyle? textStyle;
   final bool showGradiant;
+  final Color? outlineBorderClr;
+  final bool outlineBorder;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
 
@@ -40,10 +44,13 @@ class CustomEventButton extends StatelessWidget {
         height: hieght ?? 45,
         decoration: BoxDecoration(
           gradient: showGradiant ? (color) : null,
+          border: outlineBorder
+              ? Border.all(color: outlineBorderClr ?? kblack)
+              : null,
           borderRadius: BorderRadius.all(
             Radius.circular(borderRadius ?? 25),
           ),
-          color: Theme.of(context).colorScheme.surface,
+          color: outlineBorder ? knill : Theme.of(context).colorScheme.primary,
         ),
         child: Center(
           child: Text(
