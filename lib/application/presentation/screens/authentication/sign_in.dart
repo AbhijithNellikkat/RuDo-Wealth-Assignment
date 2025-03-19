@@ -21,7 +21,7 @@ class ScreenSignIn extends StatelessWidget {
               SizedBox(height: sHeight * 0.10),
               kHeight20,
               Text(
-                'Hello!\nWelcome Back',
+                'Welcome Back!\nLog in to Continue',
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
@@ -29,7 +29,7 @@ class ScreenSignIn extends StatelessWidget {
               ),
               kHeight10,
               Text(
-                'Join us today and unlock a world of financial opportunities. Sign up now to get started on your journey!',
+                'Access your account and manage your finances effortlessly. Log in to stay on top of your journey!',
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall
