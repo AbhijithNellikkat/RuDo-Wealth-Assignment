@@ -30,7 +30,10 @@ void showSnack(
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       dismissDirection: DismissDirection.horizontal,
-      content: Text(message),
+      content: Text(
+        message,
+        style: Theme.of(context).textTheme.displaySmall,
+      ),
       duration: Duration(milliseconds: time),
       backgroundColor: color,
     ),

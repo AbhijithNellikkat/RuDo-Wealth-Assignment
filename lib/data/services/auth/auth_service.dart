@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,8 +6,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rudo_wealth_test/domain/core/failure/failure.dart';
 import 'package:rudo_wealth_test/domain/core/success/success.dart';
 import 'package:rudo_wealth_test/domain/models/auth/auth_model.dart';
-import 'package:rudo_wealth_test/domain/models/auth/otp_model.dart';
-import 'package:rudo_wealth_test/domain/models/auth/phone_model.dart';
 import 'package:rudo_wealth_test/domain/repositories/auth_repo.dart';
 
 class AuthService implements AuthRepo {
@@ -53,62 +50,19 @@ class AuthService implements AuthRepo {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'INVALID_LOGIN_CREDENTIALS' ||
           e.code == 'invalid-credential') {
-        return Left(Failure(message: 'No account find with given email'));
+        return Left(Failure(message: 'No account found with the given email'));
       } else if (e.code == 'wrong-password') {
-        return Left(Failure(message: 'Wrong password'));
+        return Left(Failure(message: 'Incorrect password, please try again'));
+      } else if (e.code == 'user-not-found') {
+        return Left(Failure(message: 'No user found with this email'));
+      } else if (e.code == 'too-many-requests') {
+        return Left(
+            Failure(message: 'Too many failed attempts. Try again later'));
       } else {
-        return Left(Failure(message: e.code));
+        return Left(Failure(message: 'Authentication error: ${e.message}'));
       }
     } catch (e) {
       return Left(Failure(message: e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, Success>> sendOtp(PhoneModel phoneModel) async {
-    try {
-      String? verifyId;
-      Completer<String?> completer = Completer<String>();
-      await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+91${phoneModel.phone}',
-        timeout: const Duration(seconds: 60),
-        verificationCompleted: (PhoneAuthCredential credential) {},
-        verificationFailed: (error) {
-          log('error in otp sending');
-          verifyId = null;
-          completer.complete(null);
-        },
-        codeSent: (String verificationId, int? resendToken) {
-          log('otp send successfully');
-          verifyId = verificationId;
-          completer.complete(verificationId);
-        },
-        codeAutoRetrievalTimeout: (String verificationId) {},
-      );
-      await completer.future;
-      if (verifyId == null) {
-        return Left(Failure(message: 'failed to send otp'));
-      } else {
-        return Right(Success(message: verifyId));
-      }
-    } catch (e) {
-      return Left(Failure(message: 'failed to send otp'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, Success>> verifyOtp(
-      String verificationId, OtpModel otpModel) async {
-    try {
-      log('verification id = $verificationId ,\n codesms => ${otpModel.smsCode}');
-      PhoneAuthCredential credential = PhoneAuthProvider.credential(
-          verificationId: verificationId, smsCode: otpModel.smsCode);
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      log('verify otp successfuly');
-      return Right(Success(message: 'user authenticated successfully'));
-    } catch (error) {
-      log('got error in verify otp => ${error.toString()}');
-      return Left(Failure(message: 'failed to verify otp'));
     }
   }
 

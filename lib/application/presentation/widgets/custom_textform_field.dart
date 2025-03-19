@@ -121,7 +121,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       showEye = !showEye;
                     });
                   },
-                  icon: Icon(showEye ? Iconsax.eye_slash : Iconsax.eye))
+                  icon: Icon(
+                    showEye ? Iconsax.eye_slash : Iconsax.eye,
+                    color: kwhite,
+                  ))
               : widget.suffixIcon,
           prefix: widget.prefix,
           prefixIcon: widget.prefixIcon,

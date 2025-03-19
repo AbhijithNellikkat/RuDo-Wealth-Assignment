@@ -7,40 +7,55 @@ import 'package:rudo_wealth_test/application/presentation/screens/splash/splash_
 
 class RouteGenerator {
   Route onGenerateRoute(RouteSettings settings) {
-    //final arguments = settings.arguments;
+    Widget screen;
     switch (settings.name) {
       case Routes.initial:
-        return MaterialPageRoute(
-          builder: (ctx) => const ScreenSplash(),
-        );
+        screen = const ScreenSplash();
+        break;
       case Routes.signUpPage:
-        return MaterialPageRoute(
-          builder: (context) => const ScreenSignUp(),
-        );
+        screen = const ScreenSignUp();
+        break;
       case Routes.signInPage:
-        return MaterialPageRoute(
-          builder: (context) => const ScreenSignIn(),
-        );
-
+        screen = const ScreenSignIn();
+        break;
       case Routes.dashboardPage:
-        return MaterialPageRoute(
-          builder: (context) => const ScreenDashboard(),
-        );
-
+        screen = const ScreenDashboard();
+        break;
       default:
         return _errorScreen();
     }
+
+    return _fadeRoute(screen);
+  }
+
+  static Route _fadeRoute(Widget screen) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => screen,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 500),
+    );
   }
 
   static Route<dynamic> _errorScreen() {
-    return MaterialPageRoute(builder: (ctx) {
-      return Scaffold(
-        appBar: AppBar(title: const Text('Error')),
-        body: const Center(
-            child: Text(
-          'Error while navigating',
-        )),
-      );
-    });
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Scaffold(
+          appBar: AppBar(title: const Text('Error')),
+          body: const Center(child: Text('Error while navigating')),
+        );
+      },
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 300),
+    );
   }
 }

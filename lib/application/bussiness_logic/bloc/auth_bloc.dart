@@ -1,11 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rudo_wealth_test/domain/models/auth/auth_model.dart';
-import 'package:rudo_wealth_test/domain/models/auth/otp_model.dart';
-import 'package:rudo_wealth_test/domain/models/auth/phone_model.dart';
 import 'package:rudo_wealth_test/domain/repositories/auth_repo.dart';
 
 part 'auth_event.dart';
@@ -23,46 +19,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   TextEditingController otpController = TextEditingController();
 
   AuthBloc(this.authService) : super(AuthState.initial()) {
-    on<GetOtp>(getOtp);
-    on<VerifyOtp>(verifyOtp);
     on<SignIn>(signIn);
     on<SignUP>(signUp);
     on<SignOut>(signOut);
     on<GoogleSignIn>(googleSignIn);
-  }
-
-  Future<void> getOtp(GetOtp event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(hasError: false, isLoading: true));
-    final result = await authService.sendOtp(event.phoneModel);
-    result.fold(
-      (failure) => emit(
-        state.copyWith(
-            hasError: true, isLoading: false, message: failure.message),
-      ),
-      (success) => emit(
-        state.copyWith(
-            isLoading: false,
-            message: success.message,
-            otpVerificationId: success.message),
-      ),
-    );
-  }
-
-  Future<void> verifyOtp(VerifyOtp event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(hasError: false, isLoading: true));
-    final result =
-        await authService.verifyOtp(state.otpVerificationId!, event.otpModel);
-    result.fold(
-      (failure) => emit(state.copyWith(
-          hasError: true,
-          isLoading: false,
-          message: failure.message,
-          otpSuccess: false)),
-      (success) => emit(
-        state.copyWith(
-            otpSuccess: true, isLoading: false, message: success.message),
-      ),
-    );
+    on<TogglePasswordTap>((event, emit) {
+      emit(state.copyWith(tapOnPassword: !state.tapOnPassword));
+    });
   }
 
   Future<void> signIn(SignIn event, Emitter<AuthState> emit) async {
@@ -77,7 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         state.copyWith(
             signInSuccess: true,
             isLoading: false,
-            message: 'user authentiacated successully'),
+            message: 'You’re now signed in! Enjoy your experience.'),
       ),
     );
   }
@@ -92,7 +55,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         state.copyWith(
             signInSuccess: true,
             isLoading: false,
-            message: 'user authentiacated successully'),
+            message: 'Registration successful! Welcome aboard.'),
       ),
     );
   }
@@ -110,7 +73,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             signInSuccess: true,
             isLoading: false,
             signUpSuccess: true,
-            message: 'user authentiacated successully'),
+            message: 'Signed in with Google successfully! Let’s get started.'),
       ),
     );
   }
@@ -131,8 +94,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             logOutSuccess: true,
             isLoading: false,
             message: success.message,
-            otpSuccess: null,
-            otpVerificationId: null,
             signInSuccess: null,
             signUpSuccess: null),
       ),

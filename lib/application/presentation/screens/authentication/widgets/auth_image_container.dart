@@ -13,9 +13,9 @@ class AuthImageContainer extends StatelessWidget {
       onTap: () => ontap(),
       child: Container(
         height: sWidth * 0.10,
-        width: sWidth * 0.10,
-        decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage(img), fit: BoxFit.cover),
+        width: double.infinity,
+        child: Row(
+          children: [Image.asset(google)],
         ),
       ),
     );
