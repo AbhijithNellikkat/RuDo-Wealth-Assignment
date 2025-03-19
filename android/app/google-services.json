@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "114084224486",
+    "project_id": "rudo-wealth-test",
+    "storage_bucket": "rudo-wealth-test.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114084224486:android:e75fd2eb426530edf08a27",
+        "android_client_info": {
+          "package_name": "com.example.rudo_wealth_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0wstOgibQ7OBQr-fVNhjkQWo0q-A2Ldw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
