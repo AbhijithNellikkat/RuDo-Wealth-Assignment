@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rudo_wealth_test/application/presentation/screens/authentication/sign_in.dart';
-import 'package:rudo_wealth_test/application/presentation/screens/onboarding/on.dart';
+import 'package:rudo_wealth_test/application/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:rudo_wealth_test/application/presentation/utils/constants/constants.dart';
 
 class ScreenSplash extends StatefulWidget {
