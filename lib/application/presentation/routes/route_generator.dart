@@ -3,6 +3,7 @@ import 'package:rudo_wealth_test/application/presentation/routes/routes.dart';
 import 'package:rudo_wealth_test/application/presentation/screens/authentication/sign_in.dart';
 import 'package:rudo_wealth_test/application/presentation/screens/authentication/sign_up.dart';
 import 'package:rudo_wealth_test/application/presentation/screens/dashboard/dashboard_screen.dart';
+import 'package:rudo_wealth_test/application/presentation/screens/onboarding/on.dart';
 import 'package:rudo_wealth_test/application/presentation/screens/splash/splash_screen.dart';
 
 class RouteGenerator {
@@ -20,6 +21,9 @@ class RouteGenerator {
         break;
       case Routes.dashboardPage:
         screen = const ScreenDashboard();
+        break;
+      case Routes.onboarding:
+        screen = const ScreenOnboarding();
         break;
       default:
         return _errorScreen();

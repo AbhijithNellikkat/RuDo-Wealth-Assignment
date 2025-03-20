@@ -55,15 +55,6 @@ class ScreenDashboard extends StatelessWidget {
               return const Center(child: Text("Failed to load dashboard"));
             }
 
-            // Extracting the navigation items from the dashboard
-            final navigationItems = state.dashbord!.screens
-                    ?.firstWhere((screen) => screen.name == "dashboard",
-                        orElse: () => Screen(name: '', navigation: []))
-                    .navigation
-                    ?.map((nav) => {"icon": nav.icon, "label": nav.label})
-                    .toList() ??
-                [];
-
             return ListView(
               physics: const AlwaysScrollableScrollPhysics(),
               children: const [],
@@ -111,13 +102,68 @@ class ScreenDashboard extends StatelessWidget {
   }
 
   IconData getIconData(String iconName) {
-    switch (iconName) {
+    switch (iconName.toLowerCase()) {
       case "home":
-        return Icons.home;
+        return Iconsax.home;
       case "person":
-        return Icons.person;
+      case "profile":
+      case "user":
+        return Iconsax.user;
+      case "settings":
+      case "gear":
+        return Iconsax.setting;
+      case "search":
+        return Iconsax.search_normal;
+      case "notifications":
+      case "bell":
+        return Iconsax.notification;
+      case "message":
+      case "chat":
+        return Iconsax.message;
+      case "camera":
+        return Iconsax.camera;
+      case "image":
+      case "photo":
+        return Iconsax.gallery;
+      case "video":
+        return Iconsax.video;
+      case "location":
+      case "map":
+        return Iconsax.location;
+      case "email":
+      case "mail":
+        return Iconsax.sms;
+      case "phone":
+        return Iconsax.call;
+      case "lock":
+      case "security":
+        return Iconsax.lock;
+      case "cart":
+      case "shopping":
+        return Iconsax.shopping_cart;
+      case "favorite":
+      case "heart":
+        return Iconsax.heart;
+      case "info":
+        return Iconsax.info_circle;
+      case "help":
+      case "question":
+        return Iconsax.support;
+      case "logout":
+      case "exit":
+        return Iconsax.logout;
+      case "dashboard":
+        return Iconsax.element_4;
+      case "check":
+      case "done":
+        return Iconsax.tick_circle;
+      case "error":
+        return Iconsax.warning_2;
+      case "delete":
+      case "trash":
+        return Iconsax.trash;
       default:
-        return Icons.warning_rounded; // Default icon if unknown
+        return Iconsax.warning_2; // Default icon for unknown names
     }
   }
 }

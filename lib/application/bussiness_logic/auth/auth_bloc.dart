@@ -15,9 +15,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordSignInController = TextEditingController();
   TextEditingController emailSignInController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController otpController = TextEditingController();
-
   AuthBloc(this.authService) : super(AuthState.initial()) {
     on<SignIn>(signIn);
     on<SignUP>(signUp);
@@ -36,12 +33,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     result.fold(
       (failure) => emit(state.copyWith(
           hasError: true, isLoading: false, message: failure.message)),
-      (success) => emit(
-        state.copyWith(
-            signInSuccess: true,
-            isLoading: false,
-            message: 'You’re now signed in! Enjoy your experience.'),
-      ),
+      (success) {
+        emailSignInController.clear();
+        passwordSignInController.clear();
+        emit(
+          state.copyWith(
+              signInSuccess: true,
+              isLoading: false,
+              message: 'You’re now signed in! Enjoy your experience.'),
+        );
+      },
     );
   }
 
@@ -51,12 +52,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     result.fold(
       (failure) => emit(state.copyWith(
           hasError: true, isLoading: false, message: failure.message)),
-      (success) => emit(
-        state.copyWith(
-            signInSuccess: true,
-            isLoading: false,
-            message: 'Registration successful! Welcome aboard.'),
-      ),
+      (success) {
+        emailController.clear();
+        passwordController.clear();
+        emit(
+          state.copyWith(
+              signInSuccess: true,
+              isLoading: false,
+              message: 'Registration successful! Welcome aboard.'),
+        );
+      },
     );
   }
 
