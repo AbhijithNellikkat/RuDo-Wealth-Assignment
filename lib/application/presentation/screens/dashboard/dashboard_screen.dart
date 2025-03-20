@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:rudo_wealth_test/application/bussiness_logic/auth/auth_bloc.dart';
 import 'package:rudo_wealth_test/application/bussiness_logic/dashboard/dashboard_bloc.dart';
 import 'package:rudo_wealth_test/application/presentation/routes/routes.dart';
+import 'package:rudo_wealth_test/application/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:rudo_wealth_test/application/presentation/utils/constants/colors.dart';
 import 'package:rudo_wealth_test/application/presentation/utils/constants/constants.dart';
 
@@ -18,6 +19,18 @@ class ScreenDashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ScreenOnboarding()),
+                );
+              },
+              icon: const Icon(
+                Icons.app_shortcut_rounded,
+                color: kwhite,
+              )),
           BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state.logOutSuccess != null && state.logOutSuccess!) {
