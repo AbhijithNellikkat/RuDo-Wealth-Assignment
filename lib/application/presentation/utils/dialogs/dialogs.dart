@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rudo_wealth_test/application/presentation/utils/constants/colors.dart';
 import 'package:rudo_wealth_test/application/presentation/utils/constants/constants.dart';
 import 'package:rudo_wealth_test/application/presentation/widgets/custom_event_button.dart';
-import '../../../bussiness_logic/bloc/auth_bloc.dart';
+import '../../../bussiness_logic/auth/auth_bloc.dart';
 
 Future<dynamic> logoutDialog(BuildContext context) {
   return showDialog(

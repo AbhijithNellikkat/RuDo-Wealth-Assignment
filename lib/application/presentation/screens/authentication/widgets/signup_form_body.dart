@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:auth_buttons/auth_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rudo_wealth_test/application/bussiness_logic/bloc/auth_bloc.dart';
+import 'package:rudo_wealth_test/application/bussiness_logic/auth/auth_bloc.dart';
 import 'package:rudo_wealth_test/application/presentation/routes/routes.dart';
 import 'package:rudo_wealth_test/application/presentation/screens/authentication/sign_up.dart';
 import 'package:rudo_wealth_test/application/presentation/utils/animations/word_by_word_text_animation.dart';

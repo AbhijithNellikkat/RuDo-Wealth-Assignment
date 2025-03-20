@@ -32,7 +32,7 @@ class AppThemes {
               fontSize: 15, color: kblack, fontWeight: FontWeight.bold),
           titleSmall: TextStyle(fontSize: 13, color: kblack)),
       progressIndicatorTheme: const ProgressIndicatorThemeData(
-        color: kblack,
+        color: kprimary,
         refreshBackgroundColor: kblack,
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -48,7 +48,7 @@ class AppThemes {
         shadowColor: kgrey,
         elevation: 0,
       ),
-      navigationBarTheme: const NavigationBarThemeData(backgroundColor: kwhite),
+      navigationBarTheme: const NavigationBarThemeData(backgroundColor: kgrey),
       appBarTheme: const AppBarTheme(
           backgroundColor: kblack,
           foregroundColor: kblack,
